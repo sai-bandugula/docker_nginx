@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-              sh 'docker build -t shanmukhashan022/new_jenkins1:${BUILD_NUMBER} .'
+              sh 'docker build -t kankaranagendrareddy/nginx:${BUILD_NUMBER} .'
               }
         }
         stage('Push Docker image') {
@@ -19,13 +19,13 @@ pipeline {
             }
             steps {
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                sh    'docker push shanmukhashan022/new_jenkins1:${BUILD_NUMBER}'
+                sh    'docker push kankaranagendrareddy/nginx:${BUILD_NUMBER}'
             }
         }
 
         stage('Deploy to nginx') {
             steps {  
-                sh    'docker run --name nginx${BUILD_NUMBER} -d -p 80${BUILD_NUMBER}:80 shanmukhashan022/new_jenkins1:${BUILD_NUMBER}'
+                sh    'docker run --name nginx${BUILD_NUMBER} -d -p 80${BUILD_NUMBER}:80 kankaranagendrareddy/nginx:${BUILD_NUMBER}'
             }
         }
 
